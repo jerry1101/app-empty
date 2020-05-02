@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "954610689284",
+    "firebase_url": "https://test-deploy-jerry.firebaseio.com",
+    "project_id": "test-deploy-jerry",
+    "storage_bucket": "test-deploy-jerry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954610689284:android:48fba8fb5bc9353975dc51",
+        "android_client_info": {
+          "package_name": "com.jerry.empty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954610689284-3k14m49gjhmen5uqo2vapvf7m07fm52p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALslxmJdWjw3A5sjd_W2CWaMjDn7nnhlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954610689284-3k14m49gjhmen5uqo2vapvf7m07fm52p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954610689284:android:ec40bb92fb1b7fbf75dc51",
+        "android_client_info": {
+          "package_name": "com.jerry.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954610689284-3k14m49gjhmen5uqo2vapvf7m07fm52p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALslxmJdWjw3A5sjd_W2CWaMjDn7nnhlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954610689284-3k14m49gjhmen5uqo2vapvf7m07fm52p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
