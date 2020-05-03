@@ -11,7 +11,7 @@
         android:id="@+id/button2"
         android:layout_width="208dp"
         android:layout_height="56dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:background="?android:attr/colorEdgeEffect"
         android:onClick="searchByBrand"
         android:text="@string/button_send"
@@ -37,11 +37,11 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="357dp"
-        android:layout_height="581dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="378dp"
+        android:layout_height="550dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="?android:attr/colorBackground"
         android:fontFamily="@font/abeezee"
         android:hint="SEO details"
@@ -62,8 +62,8 @@
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView"
-        android:layout_width="243dp"
-        android:layout_height="41dp"
+        android:layout_width="249dp"
+        android:layout_height="68dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:textSize="24sp"
