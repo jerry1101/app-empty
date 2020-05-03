@@ -4,96 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
     tools:context=".MainActivity">
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="237dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="60dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Please enter account id"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="168dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="80dp"
+        android:layout_width="208dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:background="?android:attr/colorEdgeEffect"
         android:onClick="searchByBrand"
         android:text="@string/button_send"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.963"
+        app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="235dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="43dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        tools:text="aa" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="120dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:text="Account ID"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="120dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="101dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/abeezee_italic"
         android:text="Brand"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="342dp"
-        android:layout_height="370dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="38dp"
-        android:fontFamily="monospace"
+        android:layout_width="357dp"
+        android:layout_height="581dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="?android:attr/colorBackground"
+        android:fontFamily="@font/abeezee"
+        android:hint="SEO details"
         android:isScrollContainer="true"
         android:scrollIndicators="top"
+        android:scrollbarSize="20dp"
+        android:scrollbarStyle="insideOverlay"
         android:scrollbars="vertical"
         android:scrollHorizontally="false"
-        android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="243dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

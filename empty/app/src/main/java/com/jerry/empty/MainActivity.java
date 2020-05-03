@@ -3,15 +3,14 @@ package com.jerry.empty;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -31,36 +29,49 @@ import org.xml.sax.SAXException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String ODD_LINE_COLOR = "#000080";
+    public static final String EVEN_LINE_COLOR = "#800080";
     FirebaseFirestore db;
     TextView displayArea;
-    TextView brandSearch;
+    AutoCompleteTextView brandSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         displayArea = findViewById(R.id.textView4);
-        brandSearch = findViewById(R.id.editText2);
+//        brandSearch = findViewById(R.id.editText2);
         db = FirebaseFirestore.getInstance();
+
+        //initiate an auto complete text view
+        brandSearch= (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, BrandNameFactory.getBrandNames());
+
+        brandSearch.setAdapter(adapter);
+        brandSearch.setThreshold(1);//start searching from 1 character
+        brandSearch.setAdapter(adapter);   //set the adapter for displaying country name list
+
     }
 
 
-    public void searchByBrand(View button)  {
+    public void searchByBrand(View button) {
         displayArea.setText("searching............");
+
+
         DocumentReference brand = db.collection("brands").document(brandSearch.getText().toString());
         brand.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task)  {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
                 if (task.isSuccessful()) {
                     DocumentSnapshot result = task.getResult();
                     StringBuilder fields = null;
 
                     String meta_description = null;
                     try {
-                        meta_description = getAttribute( new StringBuilder("").append(result.get("meta_description")).toString());
+                        meta_description = getAttribute(new StringBuilder("").append(result.get("meta_description")).toString());
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (SAXException e) {
@@ -69,10 +80,15 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                        fields = new StringBuilder("")
-                                .append(getColoredSpanned(new StringBuilder("").append("<h1>1. h1: </h1>" + result.get("h1")).toString(),"#000080"))
-                                .append(getColoredSpanned(new StringBuilder("").append("<h1>2. h2: </h1>" + result.get("h2")).toString(),"#800080"))
-                        .append(getColoredSpanned(new StringBuilder("").append("<h1>3. meta description: </h1>" + meta_description).toString(),"#800080"));
+                    fields = new StringBuilder("")
+                            .append(getColoredSpanned(new StringBuilder("").append("<h3>check at: </h3>" + result.get("check_at")).toString(), ODD_LINE_COLOR))
+                            .append(getColoredSpanned(new StringBuilder("").append("<h2>1. url: </h2>" + result.get("url")).toString(), ODD_LINE_COLOR))
+                            .append(getColoredSpanned(new StringBuilder("").append("<h2>2. h1: </h2>" + result.get("h1")).toString(), EVEN_LINE_COLOR))
+                            .append(getColoredSpanned(new StringBuilder("").append("<h2>3. title: </h2>" + result.get("title_tag")).toString(), ODD_LINE_COLOR))
+                            .append(getColoredSpanned(new StringBuilder("").append("<h2>4. meta description: </h2>" + meta_description).toString(), EVEN_LINE_COLOR))
+                            .append(getColoredSpanned(new StringBuilder("").append("<h2>5. h2: </h2>" + result.get("h2")).toString(), ODD_LINE_COLOR))
+                            .append(getColoredSpanned(new StringBuilder("").append("<h2>6. schema: </h2>" + result.get("schema_markup")).toString(), EVEN_LINE_COLOR))
+                    ;
 
 
                     displayArea.setMovementMethod(new ScrollingMovementMethod());
@@ -93,17 +109,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void addDisplayContent(String section, String content){
-        Spannable word = new SpannableString(section);
-
-        word.setSpan(new ForegroundColorSpan(Color.BLUE), 0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        displayArea.setText(word);
-        Spannable wordTwo = new SpannableString(content);
-
-        wordTwo.setSpan(new ForegroundColorSpan(Color.WHITE), 0, wordTwo.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        displayArea.append(wordTwo);
-    }
 
     private String getColoredSpanned(String text, String color) {
         String input = "<font color=" + color + ">" + text + "</font>";
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private Document parseXmlFromString(String xmlString) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        InputStream inputStream = new    ByteArrayInputStream(xmlString.getBytes());
+        InputStream inputStream = new ByteArrayInputStream(xmlString.getBytes());
         org.w3c.dom.Document document = builder.parse(inputStream);
         return document;
     }
