@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
     <Button
@@ -12,6 +12,7 @@
         android:layout_width="264dp"
         android:layout_height="54dp"
         android:text="Brand SEO"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.553"
