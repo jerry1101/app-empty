@@ -14,19 +14,30 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
+    Button brandSEOButton;
+    Button onDemandButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = findViewById(R.id.button);
+        brandSEOButton = findViewById(R.id.brandSEOButton);
+        onDemandButton = findViewById(R.id.onDemandButton);
 
-        button.setOnClickListener(
+        brandSEOButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent activity2Intent = new Intent(getApplicationContext(), SeoBrandActivity.class);
+                        startActivity(activity2Intent);
+                    }
+                }
+        );
+
+        onDemandButton.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent activity2Intent = new Intent(getApplicationContext(), OnDemandActivity.class);
                         startActivity(activity2Intent);
                     }
                 }

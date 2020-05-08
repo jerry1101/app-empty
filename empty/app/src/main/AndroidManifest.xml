@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SeoBrandActivity" />
-
+        <activity android:name=".OnDemandActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

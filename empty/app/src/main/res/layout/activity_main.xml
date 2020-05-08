@@ -8,15 +8,31 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/brandSEOButton"
         android:layout_width="264dp"
         android:layout_height="54dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="24dp"
         android:text="Brand SEO"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/onDemandButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/onDemandButton"
+        android:layout_width="264dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="On Demand"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/brandSEOButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
