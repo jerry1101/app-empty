@@ -2,4 +2,8 @@
     <string name="app_name">SEO Checker</string>
     <string name="edit_message">Enter a massage</string>
     <string name="button_send">SEO Insight</string>
+    <string-array name="http_protocol">
+        <item>http</item>
+        <item>https</item>
+    </string-array>
 </resources>
