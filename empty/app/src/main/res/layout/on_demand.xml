@@ -45,14 +45,13 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/domainView"
+        <EditText
+            android:id="@+id/domainEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="true"
-            android:hint="www.totalwine.com"
-            android:textAlignment="center"
-            android:textSize="30sp" />
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/linkLabel"
@@ -65,19 +64,32 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView4"
+        <EditText
+            android:id="@+id/linkEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="true"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="30sp" />
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/goButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:onClick="onButtonClick"
+            android:text="Analyze"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="545dp"
+            android:isScrollContainer="true"
+            android:scrollbarSize="6dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            android:singleLine="false"
+            android:text="TextView" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
