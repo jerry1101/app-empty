@@ -1,5 +1,6 @@
 package com.jerry.empty;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -46,7 +47,7 @@ public class OnDemandActivity extends AppCompatActivity {
     }
 
     public void onButtonClick(View view)  {
-        String newLine = "<br />";
+        String newLine = System.getProperty("line.separator");
         String link = spinner.getSelectedItem().toString()+"://"+domain.getText()+url.getText();
 //        String link = "http://www.totalwine.com";
         Log.i("RequestUrl : ",link);
@@ -65,11 +66,12 @@ public class OnDemandActivity extends AppCompatActivity {
         Log.i("Alt: ", String.valueOf(doc.select("img").first()));
         StringBuilder sb = new StringBuilder();
         sb.append("1. Title: "+newLine+doc.title()+newLine)
-                .append("2. H1: "+newLine+String.valueOf(doc.select("h1").first())+newLine)
-                .append("3. H2: "+newLine+String.valueOf(doc.select("h2").first())+newLine)
+                .append("2. H1: "+newLine+String.valueOf(doc.select("h1").first().text())+newLine)
+                .append("3. H2: "+newLine+String.valueOf(doc.select("h2").first().text())+newLine)
                 .append("4. Alt: "+newLine+String.valueOf(doc.select("img").first().attr("alt"))+newLine);
         display.setMovementMethod(new ScrollingMovementMethod());
-        display.setText(Html.fromHtml(sb.toString()));
+        display.setText(sb.toString());
 
     }
+
 }

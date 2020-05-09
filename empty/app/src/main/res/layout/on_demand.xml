@@ -83,13 +83,20 @@
         <TextView
             android:id="@+id/resultTextView"
             android:layout_width="match_parent"
-            android:layout_height="545dp"
+            android:layout_height="494dp"
+            android:fontFamily="monospace"
             android:isScrollContainer="true"
             android:scrollbarSize="6dp"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical"
             android:singleLine="false"
-            android:text="TextView" />
+            android:textSize="18sp" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:text="Raw" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
