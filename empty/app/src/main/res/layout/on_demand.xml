@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:text="www.totalwine.com"/>
 
         <TextView
             android:id="@+id/linkLabel"
@@ -70,7 +71,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:text="/"/>
 
         <Button
             android:id="@+id/goButton"
