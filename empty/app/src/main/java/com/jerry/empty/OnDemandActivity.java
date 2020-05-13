@@ -2,6 +2,7 @@ package com.jerry.empty;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,10 +42,9 @@ public class OnDemandActivity extends AppCompatActivity {
         domain = findViewById(R.id.domainEditText);
         url = findViewById(R.id.linkEditText);
         display = findViewById(R.id.resultTextView);
-
+        display.setMovementMethod(new ScrollingMovementMethod());
 
     }
-
 
 
     public void onButtonClick(View view) throws ExecutionException, InterruptedException, JSONException {
@@ -53,8 +53,7 @@ public class OnDemandActivity extends AppCompatActivity {
 //        String link = "https://www.totalwine.com";
         Log.i("RequestUrl : ", link);
 
-        (new WebPageTask() ).execute(new String[]{link});
-
+        (new WebPageTask()).execute(new String[]{link});
 
 
     }
@@ -82,20 +81,24 @@ public class OnDemandActivity extends AppCompatActivity {
                 .append(NEW_LINE)
                 .append("5. img alt")
                 .append(NEW_LINE)
-                .append(obj.getString("img_alt"));
+                .append(obj.getString("img_alt"))
+                .append(NEW_LINE)
+                .append("6. markup")
+                .append(NEW_LINE)
+                .append(obj.getString("markup"));
 
         return sb.toString();
 
 
     }
 
-    private String getTextFromFirst(Elements elements)
-    {
-        if(!elements.isEmpty()){
+    private String getTextFromFirst(Elements elements) {
+        if (!elements.isEmpty()) {
             return elements.first().text();
         }
         return "";
     }
+
     private class WebPageTask extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
@@ -120,12 +123,13 @@ public class OnDemandActivity extends AppCompatActivity {
                             .put("h1", getTextFromFirst(doc.select("h1")))
                             .put("h2", getTextFromFirst(doc.select("h2")))
                             .put("meta_description", String.valueOf(doc.select("meta[name='description']").first().attr("content")))
-                            .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")));
+                            .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")))
+                            .put("markup", doc.select("script[type='application/ld+json']").first().toString())
+                    ;
+
                     display.setText(JsonToString(result));
                 } else {
-//                    result.put("error", "Wrong link" + " response code: " + status);
-
-                    display.setText("Wrong link: "+url+NEW_LINE+"response code: " + status);
+                    display.setText("Wrong link: " + url + NEW_LINE + "response code: " + status);
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();

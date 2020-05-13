@@ -92,13 +92,8 @@
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical"
             android:singleLine="false"
-            android:textSize="18sp" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="336dp"
-            android:layout_height="wrap_content"
-            android:text="Raw" />
+            android:textSize="18sp"
+            />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
