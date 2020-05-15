@@ -1,5 +1,6 @@
 package com.jerry.empty;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -22,22 +23,28 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class OnDemandActivity extends AppCompatActivity {
     public static final String NEW_LINE = System.getProperty("line.separator");
+    public static HashMap<String,String> USER_AGENTS=new HashMap<String,String>();
     Spinner spinner;
     EditText domain;
     EditText url;
     TextView display;
+    String userAgent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.on_demand);
+        USER_AGENTS.put("mobile","Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+        USER_AGENTS.put("desktop","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+
         spinner = findViewById(R.id.httpSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.http_protocol, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_agent_type, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         domain = findViewById(R.id.domainEditText);
         url = findViewById(R.id.linkEditText);
@@ -48,8 +55,8 @@ public class OnDemandActivity extends AppCompatActivity {
 
 
     public void onButtonClick(View view) throws ExecutionException, InterruptedException, JSONException {
-
-        String link = spinner.getSelectedItem().toString() + "://" + domain.getText() + url.getText();
+        userAgent = USER_AGENTS.get(spinner.getSelectedItem().toString().toLowerCase());
+        String link = new StringBuilder().append(domain.getText()).append(url.getText()).toString();
 //        String link = "https://www.totalwine.com";
         Log.i("RequestUrl : ", link);
 
@@ -114,7 +121,31 @@ public class OnDemandActivity extends AppCompatActivity {
         return (sbLength > 1)? sb.toString():NEW_LINE;
     }
 
+    private String getJsonFromMany(Elements elements) {
+        String result;
+        if (elements.isEmpty()) {
+            return "";
+        }
+        else {
+           result = elements.first().toString();
+        }
+        return result;
+    }
+
+    private String getAttrFromFirst(Elements elements, String attr) {
+        String result;
+        if (elements.isEmpty()) {
+            return "";
+        }
+        else {
+            result = elements.first().attr(attr);
+        }
+        return result;
+    }
+
     private class WebPageTask extends AsyncTask<String, Void, Void> {
+
+ 
         @Override
         protected Void doInBackground(String... strings) {
 
@@ -122,29 +153,36 @@ public class OnDemandActivity extends AppCompatActivity {
             JSONObject result = null;
             Connection.Response response = null;
             Document doc = null;
+            String responseUrl = null;
             try {
                 response = Jsoup.connect(url)
+                        .userAgent(userAgent)
                         .ignoreHttpErrors(true)
                         .followRedirects(true)
                         .execute();
-                int status = response.statusCode();
-//                Log.i("response code: ", "is " + status);
-                if (status < 399) {
-                    doc = Jsoup.connect(url).get();
+                int responseStatus = response.statusCode();
+                responseUrl = response.url().toString();
+//                Log.i("response code: ", "is " + responseStatus);
+                if (responseStatus < 399) {
+                    doc = Jsoup.connect(url)
+                            .userAgent(userAgent)
+                            .ignoreHttpErrors(true)
+                            .followRedirects(true)
+                            .get();
                     Log.i("document:", doc.toString());
                     result = new JSONObject();
-                    result.put("response", response.url() + "    " + status)
+                    result.put("response", responseUrl + "    " + responseStatus)
                             .put("title", doc.title())
                             .put("h1", getTextFromFirst(doc.select("h1")))
                             .put("h2", getTextFromMany(doc.select("h2")))
-                            .put("meta_description", String.valueOf(doc.select("meta[name='description']").first().attr("content")))
+                            .put("meta_description", getAttrFromFirst(doc.select("meta[name='description']"),"content"))
                             .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")))
-                            .put("markup", doc.select("script[type=application/ld+json]").first().toString())
+                            .put("markup", getJsonFromMany(doc.select("script[type=application/ld+json]")))
                     ;
 
                     display.setText(JsonToString(result));
                 } else {
-                    display.setText("Wrong link: " + url + NEW_LINE + "response code: " + status);
+                    display.setText("Wrong link: " + url + NEW_LINE + "response code: " + responseStatus);
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();

@@ -52,8 +52,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="24sp"
-            android:text="www.totalwine.com"/>
+            android:text="https://www.totalwine.com"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/linkLabel"
