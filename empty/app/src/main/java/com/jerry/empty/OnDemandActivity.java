@@ -99,6 +99,21 @@ public class OnDemandActivity extends AppCompatActivity {
         return "";
     }
 
+    private String getTextFromMany(Elements elements) {
+        StringBuilder sb = new StringBuilder();
+        int sbLength=0;
+        if (elements.isEmpty()) {
+            return "";
+        }
+        else {
+            for(Element e : elements){
+                sb.append(e.text()).append(NEW_LINE);
+                sbLength = sbLength+(e.text().length());
+            }
+        }
+        return (sbLength > 1)? sb.toString():NEW_LINE;
+    }
+
     private class WebPageTask extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
@@ -121,10 +136,10 @@ public class OnDemandActivity extends AppCompatActivity {
                     result.put("response", response.url() + "    " + status)
                             .put("title", doc.title())
                             .put("h1", getTextFromFirst(doc.select("h1")))
-                            .put("h2", getTextFromFirst(doc.select("h2")))
+                            .put("h2", getTextFromMany(doc.select("h2")))
                             .put("meta_description", String.valueOf(doc.select("meta[name='description']").first().attr("content")))
                             .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")))
-                            .put("markup", getTextFromFirst(doc.select("script[type='application/ld+json']")))
+                            .put("markup", doc.select("script[type=application/ld+json]").first().toString())
                     ;
 
                     display.setText(JsonToString(result));
