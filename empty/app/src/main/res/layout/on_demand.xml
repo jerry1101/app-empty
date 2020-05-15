@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,11 +77,16 @@
 
         <Button
             android:id="@+id/goButton"
-            android:layout_width="match_parent"
+            style="@style/Button"
+            android:layout_width="314dp"
             android:layout_height="wrap_content"
+
+            android:width="250dp"
+            android:background="@drawable/primary_round_btn"
             android:onClick="onButtonClick"
             android:text="Analyze"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/resultTextView"

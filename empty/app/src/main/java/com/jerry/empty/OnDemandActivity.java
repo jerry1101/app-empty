@@ -124,7 +124,7 @@ public class OnDemandActivity extends AppCompatActivity {
                             .put("h2", getTextFromFirst(doc.select("h2")))
                             .put("meta_description", String.valueOf(doc.select("meta[name='description']").first().attr("content")))
                             .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")))
-                            .put("markup", doc.select("script[type='application/ld+json']").first().toString())
+                            .put("markup", getTextFromFirst(doc.select("script[type='application/ld+json']")))
                     ;
 
                     display.setText(JsonToString(result));
