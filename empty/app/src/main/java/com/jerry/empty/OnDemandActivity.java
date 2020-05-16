@@ -145,7 +145,7 @@ public class OnDemandActivity extends AppCompatActivity {
 
     private class WebPageTask extends AsyncTask<String, Void, Void> {
 
- 
+
         @Override
         protected Void doInBackground(String... strings) {
 

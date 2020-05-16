@@ -70,8 +70,10 @@
 
     <Button
         android:id="@+id/search_bt"
-        android:layout_width="411dp"
+        android:layout_width="300dp"
         android:layout_height="75dp"
+        android:gravity="center"
+        style="@style/Button"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
