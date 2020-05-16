@@ -42,7 +42,7 @@ public class OnDemandActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.on_demand);
-        USER_AGENTS.put("mobile","Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+        USER_AGENTS.put("mobile","Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1");
         USER_AGENTS.put("desktop","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
         spinner = findViewById(R.id.httpSpinner);
