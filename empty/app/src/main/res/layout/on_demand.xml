@@ -94,7 +94,8 @@
                 android:onClick="onButtonClick"
                 android:text="Analyze"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:drawableTop="@android:drawable/ic_menu_search"/>
 
             <ImageButton
                 android:id="@+id/shareButton"
