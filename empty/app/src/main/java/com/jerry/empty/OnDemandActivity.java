@@ -3,6 +3,7 @@ package com.jerry.empty;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 
 import org.json.JSONException;
@@ -123,13 +125,16 @@ public class OnDemandActivity extends AppCompatActivity {
 
     private String getJsonFromMany(Elements elements) {
         String result;
+        StringBuilder sb = new StringBuilder();
         if (elements.isEmpty()) {
             return "";
         }
         else {
-           result = elements.first().toString();
+            for (Element e : elements) {
+                sb.append(Html.fromHtml(e.html())).append(NEW_LINE+ NEW_LINE);
+            }
         }
-        return result;
+        return sb.toString();
     }
 
     private String getAttrFromFirst(Elements elements, String attr) {
