@@ -1,6 +1,7 @@
 package com.jerry.empty;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,11 +34,13 @@ import java.util.concurrent.ExecutionException;
 public class OnDemandActivity extends AppCompatActivity {
     public static final String NEW_LINE = System.getProperty("line.separator");
     public static HashMap<String,String> USER_AGENTS=new HashMap<String,String>();
+    JSONObject viewModel = null;
     Spinner spinner;
     EditText domain;
     EditText url;
     TextView display;
     String userAgent;
+    ImageButton share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,24 @@ public class OnDemandActivity extends AppCompatActivity {
         url = findViewById(R.id.linkEditText);
         display = findViewById(R.id.resultTextView);
         display.setMovementMethod(new ScrollingMovementMethod());
+
+        share = findViewById(R.id.shareButton);
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                String shareSubject = "Share SEO analysis result";
+                String shareBody = (viewModel != null)? viewModel.toString():"Nothing to share";
+
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT,shareSubject);
+                shareIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+
+                startActivity(Intent.createChooser(shareIntent,"Start share"));
+            }
+        });
+
 
     }
 
@@ -155,7 +177,7 @@ public class OnDemandActivity extends AppCompatActivity {
         protected Void doInBackground(String... strings) {
 
             String url = strings[0];
-            JSONObject result = null;
+
             Connection.Response response = null;
             Document doc = null;
             String responseUrl = null;
@@ -175,8 +197,8 @@ public class OnDemandActivity extends AppCompatActivity {
                             .followRedirects(true)
                             .get();
                     Log.i("document:", doc.toString());
-                    result = new JSONObject();
-                    result.put("response", responseUrl + "    " + responseStatus)
+                    viewModel = new JSONObject();
+                    viewModel.put("response", responseUrl + "    " + responseStatus)
                             .put("title", doc.title())
                             .put("h1", getTextFromFirst(doc.select("h1")))
                             .put("h2", getTextFromMany(doc.select("h2")))
@@ -185,7 +207,7 @@ public class OnDemandActivity extends AppCompatActivity {
                             .put("markup", getJsonFromMany(doc.select("script[type=application/ld+json]")))
                     ;
 
-                    display.setText(JsonToString(result));
+                    display.setText(JsonToString(viewModel));
                 } else {
                     display.setText("Wrong link: " + url + NEW_LINE + "response code: " + responseStatus);
                 }
