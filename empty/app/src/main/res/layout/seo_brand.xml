@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/display_tv"
 
-        android:layout_width="401dp"
+        android:layout_width="0dp"
         android:layout_height="651dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -35,9 +35,11 @@
 
     <AutoCompleteTextView
         android:id="@+id/brand_actv"
-        android:layout_width="249dp"
+        android:layout_width="0dp"
         android:layout_height="68dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:textSize="24sp"
         android:textStyle="bold|italic"
@@ -52,20 +54,18 @@
         android:id="@+id/textView"
         android:layout_width="124dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="736dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/abeezee_italic"
+        android:fontFamily="sans-serif-smallcaps"
         android:shadowColor="#561919"
         android:text="Brand"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#9C27B0"
+        android:textColor="#661374"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/search_bt"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
