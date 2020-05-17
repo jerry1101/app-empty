@@ -114,7 +114,11 @@ public class OnDemandActivity extends AppCompatActivity {
                 .append(NEW_LINE)
                 .append(obj.getString("img_alt"))
                 .append(NEW_LINE)
-                .append("6. markup")
+                .append("6. canonical")
+                .append(NEW_LINE)
+                .append(obj.getString("canonical"))
+                .append(NEW_LINE)
+                .append("7. markup")
                 .append(NEW_LINE)
                 .append(obj.getString("markup"));
 
@@ -204,6 +208,7 @@ public class OnDemandActivity extends AppCompatActivity {
                             .put("h2", getTextFromMany(doc.select("h2")))
                             .put("meta_description", getAttrFromFirst(doc.select("meta[name='description']"),"content"))
                             .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")))
+                            .put("canonical",getAttrFromFirst(doc.select("link[rel='canonical']"),"href"))
                             .put("markup", getJsonFromMany(doc.select("script[type=application/ld+json]")))
                     ;
 
