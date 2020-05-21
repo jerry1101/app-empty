@@ -2,10 +2,15 @@ package com.jerry.empty;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,6 +32,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -34,6 +41,7 @@ import java.util.concurrent.ExecutionException;
 public class OnDemandActivity extends AppCompatActivity {
     public static final String NEW_LINE = System.getProperty("line.separator");
     public static HashMap<String, String> USER_AGENTS = new HashMap<String, String>();
+    public static List<String> DISPLAY_ROWS = new ArrayList<String>();
     JSONObject viewModel = null;
     Spinner spinner;
     EditText domain;
@@ -74,6 +82,7 @@ public class OnDemandActivity extends AppCompatActivity {
             }
         });
 
+        DISPLAY_ROWS = Arrays.asList("response", "title", "h1", "h2", "meta_description", "img_alt", "canonical", "markup");
 
     }
 
@@ -91,39 +100,24 @@ public class OnDemandActivity extends AppCompatActivity {
 
     private String JsonToString(JSONObject obj) throws JSONException {
 //        Log.i("JSON: ",obj.toString());
+
+
         StringBuilder sb = new StringBuilder();
-        sb.append(obj.getString("response"))
-                .append(NEW_LINE)
-                .append("1. title")
-                .append(NEW_LINE)
-                .append(obj.getString("title"))
-                .append(NEW_LINE)
-                .append("2. h1")
-                .append(NEW_LINE)
-                .append(obj.getString("h1"))
-                .append(NEW_LINE)
-                .append("3. h2")
-                .append(NEW_LINE)
-                .append(obj.getString("h2"))
-                .append(NEW_LINE)
-                .append("4. meta description")
-                .append(NEW_LINE)
-                .append(obj.getString("meta_description"))
-                .append(NEW_LINE)
-                .append("5. img alt")
-                .append(NEW_LINE)
-                .append(obj.getString("img_alt"))
-                .append(NEW_LINE)
-                .append("6. canonical")
-                .append(NEW_LINE)
-                .append(obj.getString("canonical"))
-                .append(NEW_LINE)
-                .append("7. markup")
-                .append(NEW_LINE)
-                .append(obj.getString("markup"));
 
+        int i = 0;
+        for (String row : DISPLAY_ROWS) {
+            if (i == 0) {
+                sb.append(obj.getString(row))
+                        .append(NEW_LINE);
+            } else {
+                sb.append(String.valueOf(i) + ". " + row)
+                        .append(NEW_LINE)
+                        .append(obj.getString(row))
+                        .append(NEW_LINE);
+            }
+            i++;
+        }
         return sb.toString();
-
 
     }
 
