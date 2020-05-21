@@ -47,7 +47,7 @@ public class SeoBrandActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //initiate an auto complete text view
-        brandSearch= (AutoCompleteTextView) findViewById(R.id.brand_actv);
+        brandSearch = (AutoCompleteTextView) findViewById(R.id.brand_actv);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, BrandNameFactory.getBrandNames());
 
         brandSearch.setAdapter(adapter);

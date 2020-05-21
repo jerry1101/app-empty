@@ -33,7 +33,7 @@ import java.util.concurrent.ExecutionException;
 
 public class OnDemandActivity extends AppCompatActivity {
     public static final String NEW_LINE = System.getProperty("line.separator");
-    public static HashMap<String,String> USER_AGENTS=new HashMap<String,String>();
+    public static HashMap<String, String> USER_AGENTS = new HashMap<String, String>();
     JSONObject viewModel = null;
     Spinner spinner;
     EditText domain;
@@ -46,8 +46,8 @@ public class OnDemandActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.on_demand);
-        USER_AGENTS.put("mobile","Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1");
-        USER_AGENTS.put("desktop","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        USER_AGENTS.put("mobile", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1");
+        USER_AGENTS.put("desktop", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
         spinner = findViewById(R.id.httpSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_agent_type, android.R.layout.simple_spinner_dropdown_item);
@@ -65,12 +65,12 @@ public class OnDemandActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 String shareSubject = "Share SEO analysis result";
-                String shareBody = (viewModel != null)? viewModel.toString():"Nothing to share";
+                String shareBody = (viewModel != null) ? viewModel.toString() : "Nothing to share";
 
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT,shareSubject);
-                shareIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
 
-                startActivity(Intent.createChooser(shareIntent,"Start share"));
+                startActivity(Intent.createChooser(shareIntent, "Start share"));
             }
         });
 
@@ -136,17 +136,16 @@ public class OnDemandActivity extends AppCompatActivity {
 
     private String getTextFromMany(Elements elements) {
         StringBuilder sb = new StringBuilder();
-        int sbLength=0;
+        int sbLength = 0;
         if (elements.isEmpty()) {
             return "";
-        }
-        else {
-            for(Element e : elements){
+        } else {
+            for (Element e : elements) {
                 sb.append(e.text()).append(NEW_LINE);
-                sbLength = sbLength+(e.text().length());
+                sbLength = sbLength + (e.text().length());
             }
         }
-        return (sbLength > 1)? sb.toString():NEW_LINE;
+        return (sbLength > 1) ? sb.toString() : NEW_LINE;
     }
 
     private String getJsonFromMany(Elements elements) {
@@ -154,10 +153,9 @@ public class OnDemandActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         if (elements.isEmpty()) {
             return "";
-        }
-        else {
+        } else {
             for (Element e : elements) {
-                sb.append(Html.fromHtml(e.html())).append(NEW_LINE+ NEW_LINE);
+                sb.append(Html.fromHtml(e.html())).append(NEW_LINE + NEW_LINE);
             }
         }
         return sb.toString();
@@ -167,8 +165,7 @@ public class OnDemandActivity extends AppCompatActivity {
         String result;
         if (elements.isEmpty()) {
             return "";
-        }
-        else {
+        } else {
             result = elements.first().attr(attr);
         }
         return result;
@@ -206,9 +203,9 @@ public class OnDemandActivity extends AppCompatActivity {
                             .put("title", doc.title())
                             .put("h1", getTextFromFirst(doc.select("h1")))
                             .put("h2", getTextFromMany(doc.select("h2")))
-                            .put("meta_description", getAttrFromFirst(doc.select("meta[name='description']"),"content"))
+                            .put("meta_description", getAttrFromFirst(doc.select("meta[name='description']"), "content"))
                             .put("img_alt", String.valueOf(doc.select("img").first().attr("alt")))
-                            .put("canonical",getAttrFromFirst(doc.select("link[rel='canonical']"),"href"))
+                            .put("canonical", getAttrFromFirst(doc.select("link[rel='canonical']"), "href"))
                             .put("markup", getJsonFromMany(doc.select("script[type=application/ld+json]")))
                     ;
 

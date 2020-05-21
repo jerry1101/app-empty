@@ -54,7 +54,7 @@
         android:id="@+id/textView"
         android:layout_width="124dp"
         android:layout_height="50dp"
-        android:layout_marginTop="736dp"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-smallcaps"
         android:shadowColor="#561919"
@@ -66,8 +66,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/search_bt"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/display_tv" />
 
     <Button
         android:id="@+id/search_bt"
