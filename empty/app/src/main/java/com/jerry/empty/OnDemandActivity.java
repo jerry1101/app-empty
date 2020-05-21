@@ -11,6 +11,8 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -40,6 +42,7 @@ import java.util.concurrent.ExecutionException;
 
 public class OnDemandActivity extends AppCompatActivity {
     public static final String NEW_LINE = System.getProperty("line.separator");
+    public static final String ROW_PREFIX = ". ";
     public static HashMap<String, String> USER_AGENTS = new HashMap<String, String>();
     public static List<String> DISPLAY_ROWS = new ArrayList<String>();
     JSONObject viewModel = null;
@@ -98,27 +101,40 @@ public class OnDemandActivity extends AppCompatActivity {
 
     }
 
-    private String JsonToString(JSONObject obj) throws JSONException {
+    private SpannableStringBuilder JsonToString(JSONObject obj) throws JSONException {
 //        Log.i("JSON: ",obj.toString());
 
 
-        StringBuilder sb = new StringBuilder();
-
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+//        StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+//        ForegroundColorSpan fgSpan = new ForegroundColorSpan(Color.GREEN);
         int i = 0;
         for (String row : DISPLAY_ROWS) {
+
             if (i == 0) {
-                sb.append(obj.getString(row))
+
+                sb.append(getSpannedText(obj.getString(row)))
                         .append(NEW_LINE);
             } else {
-                sb.append(String.valueOf(i) + ". " + row)
+
+                sb.append(getSpannedText(new String(String.valueOf(i) + ROW_PREFIX + row)))
                         .append(NEW_LINE)
                         .append(obj.getString(row))
                         .append(NEW_LINE);
             }
             i++;
         }
-        return sb.toString();
+        return sb;
+    }
 
+    private SpannableString getSpannedText(String string) {
+        SpannableString title = new SpannableString(string);
+        int end = string.length();
+        StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+        ForegroundColorSpan fgSpan = new ForegroundColorSpan(Color.MAGENTA);
+        title.setSpan(boldSpan, 0, end, 0);
+        title.setSpan(fgSpan, 0, end, 0);
+        return title;
     }
 
     private String getTextFromFirst(Elements elements) {
@@ -203,7 +219,7 @@ public class OnDemandActivity extends AppCompatActivity {
                             .put("markup", getJsonFromMany(doc.select("script[type=application/ld+json]")))
                     ;
 
-                    display.setText(JsonToString(viewModel));
+                    display.setText(JsonToString(viewModel), TextView.BufferType.SPANNABLE);
                 } else {
                     display.setText("Wrong link: " + url + NEW_LINE + "response code: " + responseStatus);
                 }
